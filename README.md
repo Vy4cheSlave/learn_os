@@ -11,7 +11,7 @@ To create a binary file, you need to enter the command in the project directory:
 rustup override set nightly
 ```
 
-And also create a config.yml file in the .cargo directory and add the following lines:
+And also create a config.toml file in the .cargo directory and add the following lines:
 ```bash
 # in .cargo/config.toml
 
