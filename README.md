@@ -23,7 +23,7 @@ To create a binary file, you need to enter the command in the project directory:
 rustup override set nightly
 rustup component add llvm-tools-preview
 
-# in learn_os/kernel
+# in learn_os
 rustup override set nightly
 ```
 
