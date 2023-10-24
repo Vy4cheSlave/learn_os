@@ -1,5 +1,5 @@
 [package]
-name = "learn_os" # or any other name
+name = "t-tauri_kernel" # or any other name
 version = "0.1.0"
 
 [build-dependencies]

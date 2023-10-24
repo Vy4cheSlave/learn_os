@@ -469,15 +469,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "learn_os"
-version = "0.1.0"
-dependencies = [
- "bootloader",
- "kernel",
- "ovmf-prebuilt",
-]
-
-[[package]]
 name = "libc"
 version = "0.2.149"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -752,6 +743,15 @@ dependencies = [
  "proc-macro2",
  "quote",
  "unicode-ident",
+]
+
+[[package]]
+name = "t-tauri_kernel"
+version = "0.1.0"
+dependencies = [
+ "bootloader",
+ "kernel",
+ "ovmf-prebuilt",
 ]
 
 [[package]]

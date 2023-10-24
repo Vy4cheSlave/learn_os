@@ -5,7 +5,7 @@ mod vga;
 
 #[allow(unused_imports)] //
 use bootloader_api::{config, info};
-#[allow(unused_imports)] //
+#[allow(unused_imports)] // vga option
 use core::fmt::Write;
 #[allow(unused_imports)] //
 use vga::FrameBufferWriter;
@@ -30,8 +30,9 @@ fn kernel_main(boot_info: &'static mut info::BootInfo) -> ! {
     };
 
     // write example on vga
+    write!(&mut framebuffer_writer, "!!!\n").expect("error with strings");
     framebuffer_writer
-        .write_str("-Staralis, Klim Sanich \n-Da \n-Pyatikratno pervarenniy KAL \n-DA")
+        .write_str("-Staralis, Klim Sanich \n-Da \n-Potrachennogo vremeni jal\n-Da \n-Pyatikratno pervarenniy KAL \n-DA")
         .expect("FrameBufferWriter 'write_str()' error");
 
     loop {}
