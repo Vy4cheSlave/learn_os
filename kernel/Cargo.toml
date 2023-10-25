@@ -8,3 +8,16 @@ edition = "2021"
 [dependencies]
 bootloader_api = "0.11"
 noto-sans-mono-bitmap = "0.2.0"
+spin = "0.9.8"
+
+[dependencies.lazy_static]
+version = "1.4.0"
+features = ["spin_no_std"]
+
+# Enable a small amount of optimization in debug mode
+[profile.dev]
+opt-level = 1
+
+# Enable max optimizations for dependencies, but not for our code:
+[profile.dev.package."*"]
+opt-level = 3

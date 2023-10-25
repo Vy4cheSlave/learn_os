@@ -3,43 +3,46 @@
 
 mod vga;
 
-#[allow(unused_imports)] //
+// Imported modules
 use bootloader_api::{config, info};
-#[allow(unused_imports)] // vga option
-use core::fmt::Write;
-#[allow(unused_imports)] //
-use vga::FrameBufferWriter;
 
 #[allow(dead_code)] //
 const CONFIG: bootloader_api::BootloaderConfig = {
     let mut config = bootloader_api::BootloaderConfig::new_default();
-    config.kernel_stack_size = 100 * 1024; // 100 KiB
+    config.kernel_stack_size = 100 * 1024; // 100 KiBS
     config
 };
 bootloader_api::entry_point!(kernel_main);
 
+#[allow(unreachable_code)] //
 #[allow(unused_variables)] //
 fn kernel_main(boot_info: &'static mut info::BootInfo) -> ! {
-    // vga object
-    let mut framebuffer_writer = match &mut boot_info.framebuffer {
-        info::Optional::Some(frame_buffer) => {
-            let framebuffer_info = frame_buffer.info().clone();
-            FrameBufferWriter::new(frame_buffer.buffer_mut(), framebuffer_info)
-        }
-        info::Optional::None => panic!("Failed to get framebuffer from boot info."),
-    };
+    // start of initialization of required parameters
+    {
+        use vga::{FrameBufferWriter, WRITER};
 
-    // write example on vga
-    write!(&mut framebuffer_writer, "!!!\n").expect("error with strings");
-    framebuffer_writer
-        .write_str("-Staralis, Klim Sanich \n-Da \n-Potrachennogo vremeni jal\n-Da \n-Pyatikratno pervarenniy KAL \n-DA")
-        .expect("FrameBufferWriter 'write_str()' error");
+        *WRITER.lock() = match &mut boot_info.framebuffer {
+            info::Optional::Some(framebuffer) => {
+                let framebuffer_info = framebuffer.info().clone();
+                Option::Some(FrameBufferWriter::new(
+                    framebuffer.buffer_mut(),
+                    framebuffer_info,
+                ))
+            }
+            info::Optional::None => panic!("Failed to get framebuffer from boot info."),
+        };
+    }
+    // end of initialization of required parameters
+
+    println!("Hello World{}", "я русский");
+    panic!("some panic");
 
     loop {}
 }
 
 // This function is called on panic.
 #[panic_handler]
-fn panic(_info: &core::panic::PanicInfo) -> ! {
+fn panic(info: &core::panic::PanicInfo) -> ! {
+    println!("{}", info);
     loop {}
 }
