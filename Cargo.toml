@@ -6,6 +6,12 @@ version = "0.1.0"
 bootloader = "0.11"
 kernel = { path = "kernel", artifact = "bin", target = "x86_64-unknown-none" }
 
+# [features]
+# default = ["prod"]
+# unit = []
+# it = []
+# prod = []
+
 [dependencies]
 # used for UEFI booting in QEMU
 ovmf-prebuilt = "0.1.0-alpha.1"
